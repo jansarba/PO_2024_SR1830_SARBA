@@ -75,3 +75,19 @@ fabric.properties
 
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
+
+oolab/settings.gradle
+
+oolab/build.gradle
+
+oolab/gradlew.bat
+
+oolab/gradlew
+
+oolab/check_for_jackass.sh
+
+oolab/build/
+
+*.DS_Store
+
+oolab/.idea/

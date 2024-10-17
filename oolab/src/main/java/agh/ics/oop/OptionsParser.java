@@ -22,7 +22,6 @@ public class OptionsParser {
                     break;
                 default:
                     System.out.println("Invalid input: " + arg);
-                    continue;
             }
         }
         return result.toArray(new MoveDirection[0]);
