@@ -11,6 +11,7 @@ public class Vector2d {
     public int[] getXY() {
         return new int[]{x,y};
     }
+    @Override
     public String toString(){
         return String.format("(%d,%d)", x,y);
     }
@@ -35,10 +36,15 @@ public class Vector2d {
     public Vector2d opposite(){
         return new Vector2d(-x,-y);
     }
+    @Override
     public boolean equals(Object other){
-        Vector2d otherVector = (Vector2d)other;
-        return x==otherVector.x && y==otherVector.y;
+        if (other instanceof Vector2d){
+            Vector2d otherVector = (Vector2d)other;
+            return x==otherVector.x && y==otherVector.y;
+        }
+        return false;
     }
+    @Override
     public int hashCode(){
         return Objects.hash(x,y);
     }

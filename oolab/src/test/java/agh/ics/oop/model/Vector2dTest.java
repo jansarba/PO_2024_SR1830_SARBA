@@ -11,7 +11,6 @@ public class Vector2dTest {
         assertTrue(v1.precedes(v2));
         assertFalse(v2.precedes(v1));
     }
-    //przyznam sie, ze generowal chat - to jest koszmarnie zmudna robota
     @Test
     public void testFollows() {
         // Given
