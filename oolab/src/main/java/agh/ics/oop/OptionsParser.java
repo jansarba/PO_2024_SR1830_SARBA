@@ -1,11 +1,13 @@
 package agh.ics.oop;
 
 import agh.ics.oop.model.MoveDirection;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class OptionsParser {
-    public static MoveDirection[] optionsParser(String[] args) {
-        ArrayList<MoveDirection> result = new ArrayList<>();
+    public static List<MoveDirection> optionsParser(String[] args) {
+        List<MoveDirection> result = new ArrayList<>();
         for (String arg : args) {
             switch (arg) {
                 case "f":
@@ -24,6 +26,6 @@ public class OptionsParser {
                     System.out.println("Invalid input: " + arg);
             }
         }
-        return result.toArray(new MoveDirection[0]);
+        return result;
     }
 }
