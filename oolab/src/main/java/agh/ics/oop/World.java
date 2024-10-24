@@ -1,12 +1,10 @@
 package agh.ics.oop;
 
-import agh.ics.oop.model.Animal;
 import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.Vector2d;
 
 import java.util.List;
 
-import static agh.ics.oop.OptionsParser.optionsParser;
 
 public class World {
     public static void main(String[] args) {
