@@ -8,8 +8,11 @@ public class Vector2d {
         this.x=x;
         this.y=y;
     }
-    public int[] getXY() {
-        return new int[]{x,y};
+    public int getX() {
+        return x;
+    }
+    public int getY() {
+        return y;
     }
     @Override
     public String toString(){
