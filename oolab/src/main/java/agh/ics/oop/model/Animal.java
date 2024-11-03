@@ -58,7 +58,7 @@ public class Animal {
         switch (direction){ //jesli forward/backward to idziemy
             case FORWARD:
                 Vector2d newPosition_1 = position.add(forward_vec);
-                if (validator.canMoveTo(newPosition_1)) { // Using MoveValidator to check if the move is valid
+                if (validator.canMoveTo(newPosition_1)) {
                     this.position = newPosition_1;
                 }
                 break;
