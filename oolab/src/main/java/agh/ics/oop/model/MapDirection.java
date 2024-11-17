@@ -8,10 +8,10 @@ public enum MapDirection {
     public static final Vector2d SOUTH_VEC = new Vector2d(0, -1);
     public static final Vector2d WEST_VEC = new Vector2d(-1, 0);
 
-    private static final String NORTH_STRING = "Pułnoc";
-    private static final String EAST_STRING = "Wschód";
-    private static final String SOUTH_STRING = "Południe";
-    private static final String WEST_STRING = "Zachód";
+    private static final String NORTH_STRING = "^";
+    private static final String EAST_STRING = ">";
+    private static final String SOUTH_STRING = "v";
+    private static final String WEST_STRING = "<";
 
     public static final Vector2d UPPER_RIGHT_BOUNDARY = new Vector2d(4, 4);
     public static final Vector2d LOWER_LEFT_BOUNDARY = new Vector2d(0, 0);
