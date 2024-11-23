@@ -23,7 +23,7 @@ public class OptionsParser {
                     result.add(MoveDirection.RIGHT);
                     break;
                 default:
-                    System.out.println("Invalid input: " + arg);
+                    throw new IllegalArgumentException(arg + " is not legal move specification");
             }
         }
         return result;

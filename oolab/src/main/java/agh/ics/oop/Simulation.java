@@ -1,5 +1,6 @@
 package agh.ics.oop;
 
+import agh.ics.oop.exceptions.IncorrectPositionException;
 import agh.ics.oop.model.*;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class Simulation {
         return animals;
     }
 
-    public void run(){
+    public void run() throws IncorrectPositionException{
         int tmp=0;
         for (MoveDirection move : moves) {
             Animal curr = animals.get(tmp% animals.size());
