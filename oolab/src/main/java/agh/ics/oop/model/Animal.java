@@ -4,7 +4,7 @@ import agh.ics.oop.MoveValidator;
 import agh.ics.oop.model.Vector2d;
 import agh.ics.oop.model.RectangularMap;
 
-public class Animal {
+public class Animal implements WorldElement{
     public MapDirection orientation;
     public Vector2d position;
     public final int index;
@@ -17,34 +17,26 @@ public class Animal {
     public Animal(Vector2d position, int index) { //overloading tez
         this(MapDirection.NORTH, position, index);
     }
+    public Animal(MapDirection orientation, Vector2d position) {
+        this(orientation, position, 0);
+    }
     public Animal(){ //default constructor to trzeba tak zoverloadowac chyba??
         this(MapDirection.NORTH, new Vector2d(2,2),127); //jakis bezpieczny index choc nie wiem czy nie lepiej wywalac bledu przy braku indeksu?
     }
-
+    @Override
     public Vector2d getPosition(){
         return position;
     }
-
-    public void setPosition(Vector2d newPosition){
-        this.position = newPosition;
+    public MapDirection getOrientation(){
+        return orientation;
     }
 
-    @Override
     public String toString() {
-        return switch (orientation) { // Schematyczna orientacja zwierzęcia
-            case NORTH -> "N";
-            case EAST -> "E";
-            case SOUTH -> "S";
-            case WEST -> "W";
-        };
+        return orientation.toString();
     }
 
     public boolean isAt(Vector2d position){
         return this.position.equals(position);
-    }
-
-    public boolean isInside(Vector2d position){
-        return (position.follows(RectangularMap.getLOWER_LEFT_BOUNDARY()) & position.precedes(RectangularMap.getUPPER_RIGHT_BOUNDARY()));
     }
 
     public void move(MoveDirection direction, MoveValidator validator){
