@@ -1,5 +1,6 @@
 package agh.ics.oop;
 
+import agh.ics.oop.exceptions.IncorrectPositionException;
 import agh.ics.oop.model.*;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SimulationTest{
 
     @Test
-    void animalHasCorrectOrientation(){
+    void animalHasCorrectOrientation() throws IncorrectPositionException{
         List<MoveDirection> moves=List.of(MoveDirection.FORWARD,MoveDirection.RIGHT,MoveDirection.FORWARD,MoveDirection.LEFT);
         List<Vector2d> positions=List.of(new Vector2d(2,2));
         RectangularMap map = new RectangularMap(10, 10);
@@ -22,7 +23,7 @@ class SimulationTest{
     }
 
     @Test
-    void animalMovesToCorrectPosition(){
+    void animalMovesToCorrectPosition() throws IncorrectPositionException{
         List<MoveDirection> moves=List.of(MoveDirection.FORWARD,MoveDirection.FORWARD);
         List<Vector2d> positions=List.of(new Vector2d(2,2));
         RectangularMap map = new RectangularMap(10, 10);

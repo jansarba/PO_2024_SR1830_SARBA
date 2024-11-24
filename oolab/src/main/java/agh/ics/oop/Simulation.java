@@ -30,9 +30,13 @@ public class Simulation {
     public void run() throws IncorrectPositionException{
         int tmp=0;
         for (MoveDirection move : moves) {
-            Animal curr = animals.get(tmp% animals.size());
-            curr.move(move,map);
-            System.out.println(curr);
+            Animal curr = animals.get(tmp % animals.size());
+            try {
+                map.move(curr, move);
+                System.out.println(curr);
+            } catch (IncorrectPositionException e) {
+                System.out.println("Invalid move skipped: " + e.getMessage());
+            }
             tmp++;
         }
     }

@@ -2,8 +2,6 @@ package agh.ics.oop.model;
 
 import agh.ics.oop.MoveValidator;
 import agh.ics.oop.exceptions.IncorrectPositionException;
-import agh.ics.oop.model.Vector2d;
-import agh.ics.oop.model.RectangularMap;
 
 public class Animal implements WorldElement{
     public MapDirection orientation;
@@ -40,7 +38,7 @@ public class Animal implements WorldElement{
         return this.position.equals(position);
     }
 
-    public void move(MoveDirection direction, MoveValidator validator) throws IncorrectPositionException{
+    public void changePosition(MoveDirection direction,MoveValidator validator) throws IncorrectPositionException{
         Vector2d forward_vec = switch (orientation) { //patrzymy, gdzie jest "przod"
             case NORTH -> MapDirection.NORTH_VEC;
             case EAST -> MapDirection.EAST_VEC;

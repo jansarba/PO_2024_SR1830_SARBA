@@ -21,13 +21,15 @@ public abstract class AbstractWorldMap implements WorldMap {
         if (canMoveTo(animal.getPosition())) {
             animals.put(animal.getPosition(), animal);
         }
-        throw new IncorrectPositionException(animal.getPosition());
+        else{
+            throw new IncorrectPositionException(animal.getPosition());
+        }
     }
 
     @Override
     public void move(Animal animal, MoveDirection direction) throws IncorrectPositionException{
         Vector2d oldPosition = animal.getPosition();
-        animal.move(direction, this);
+        animal.changePosition(direction, this);
         animals.remove(oldPosition);
         animals.put(animal.getPosition(), animal);
     }
