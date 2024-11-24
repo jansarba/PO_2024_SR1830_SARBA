@@ -33,9 +33,8 @@ public class Simulation {
             Animal curr = animals.get(tmp % animals.size());
             try {
                 map.move(curr, move);
-                System.out.println(curr);
             } catch (IncorrectPositionException e) {
-                System.out.println("Invalid move skipped: " + e.getMessage());
+                System.out.println("Invalid move skipped: " + e.getMessage() + "\n");
             }
             tmp++;
         }

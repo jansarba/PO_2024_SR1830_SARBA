@@ -1,5 +1,7 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.RectangularMap;
 import agh.ics.oop.MoveValidator;
 import agh.ics.oop.exceptions.IncorrectPositionException;
 

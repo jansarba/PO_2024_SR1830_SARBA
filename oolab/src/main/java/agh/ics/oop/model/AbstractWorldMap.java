@@ -1,5 +1,6 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.model.Boundary;
 import agh.ics.oop.exceptions.IncorrectPositionException;
 import agh.ics.oop.MapVisualizer;
 
@@ -10,6 +11,21 @@ public abstract class AbstractWorldMap implements WorldMap {
     protected Vector2d upperRight = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
     protected final Map<Vector2d, Animal> animals = new HashMap<>();
     protected final MapVisualizer visualizer = new MapVisualizer(this);
+    protected ArrayList<MapChangeListener> observers= new ArrayList<>();
+
+    public void addObserver(MapChangeListener observer) {
+        observers.add(observer);
+    }
+
+    public void removeObserver(MapChangeListener observer) {
+        observers.remove(observer);
+    }
+
+    protected void notifyObservers(String message) {
+        for (MapChangeListener observer : observers) {
+            observer.mapChanged(this, message);
+        }
+    }
 
     @Override
     public boolean canMoveTo(Vector2d position) {
@@ -20,6 +36,7 @@ public abstract class AbstractWorldMap implements WorldMap {
     public void place(Animal animal) throws IncorrectPositionException{
         if (canMoveTo(animal.getPosition())) {
             animals.put(animal.getPosition(), animal);
+            notifyObservers("Zwierze polozone na: " + animal.getPosition());
         }
         else{
             throw new IncorrectPositionException(animal.getPosition());
@@ -32,6 +49,7 @@ public abstract class AbstractWorldMap implements WorldMap {
         animal.changePosition(direction, this);
         animals.remove(oldPosition);
         animals.put(animal.getPosition(), animal);
+        notifyObservers("Zwierze przeniesione z: " + oldPosition + " na: " + animal.getPosition());
     }
 
     @Override

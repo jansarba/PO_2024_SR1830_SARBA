@@ -18,6 +18,8 @@ public class World {
         List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(2,4));
 //        AbstractWorldMap map = new GrassField(10);
         AbstractWorldMap map = new RectangularMap(5,5);
+        ConsoleMapDisplay obs1 = new ConsoleMapDisplay();
+        map.addObserver(obs1);
         List<Vector2d> validPositions= new ArrayList<>();
         for (Vector2d position : positions) {
             try {
