@@ -91,3 +91,5 @@ oolab/build/
 *.DS_Store
 
 oolab/.idea/
+
+oolab/.gradle/

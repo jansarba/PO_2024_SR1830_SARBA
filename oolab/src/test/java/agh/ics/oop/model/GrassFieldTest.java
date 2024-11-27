@@ -1,18 +1,19 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.exceptions.IncorrectPositionException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GrassFieldTest {
 
     @Test
-    public void testIfMapWorks() {
+    public void testIfMapWorks() throws IncorrectPositionException {
         // Given
         WorldMap map = new GrassField(10);
         Animal animal = new Animal();
 
         // When
-        assertTrue(map.place(animal), "Animal should be placed successfully.");
+        map.place(animal);
         map.move(animal, MoveDirection.FORWARD);
 
         // Then
@@ -20,13 +21,13 @@ public class GrassFieldTest {
     }
 
     @Test
-    public void testCanMoveTo1() {
+    public void testCanMoveTo1() throws IncorrectPositionException {
         // Given
         WorldMap map = new GrassField(10);
         Animal animal = new Animal();
 
         // When
-        assertTrue(map.place(animal), "Animal should be placed successfully.");
+        map.place(animal);
 
         // Then
         assertTrue(map.canMoveTo(new Vector2d(2, 3)), "Position (2, 3) should be free.");
@@ -34,15 +35,15 @@ public class GrassFieldTest {
     }
 
     @Test
-    public void testCanMoveTo2() {
+    public void testCanMoveTo2() throws IncorrectPositionException {
         // Given
         WorldMap map = new GrassField(10);
         Animal animal1 = new Animal();
         Animal animal2 = new Animal(MapDirection.SOUTH, new Vector2d(2, 3));
 
         // When
-        assertTrue(map.place(animal1), "Animal 1 should be placed successfully.");
-        assertTrue(map.place(animal2), "Animal 2 should be placed successfully.");
+        map.place(animal1);
+        map.place(animal2);
 
         // Then
         assertFalse(map.canMoveTo(new Vector2d(2, 3)), "Position (2, 3) should be occupied by animal 2.");
@@ -56,22 +57,27 @@ public class GrassFieldTest {
         Animal animal2 = new Animal(MapDirection.SOUTH, new Vector2d(2, 2));
 
         // When
-        assertTrue(map.place(animal1), "Animal 1 should be placed successfully.");
+        assertDoesNotThrow(() -> map.place(animal1), "Animal 1 should be placed successfully.");
+        IncorrectPositionException exception = assertThrows(
+                IncorrectPositionException.class,
+                () -> map.place(animal2),
+                "Placing animal 2 should throw IncorrectPositionException as position is occupied."
+        );
 
         // Then
-        assertFalse(map.place(animal2), "Placing animal 2 should fail as position is occupied.");
+        assertEquals("Position is incorrect (2,2)", exception.getMessage());
     }
 
     @Test
-    public void testMove() {
+    public void testMove() throws IncorrectPositionException {
         // Given
         WorldMap map = new GrassField(10);
         Animal animal1 = new Animal();
         Animal animal2 = new Animal(MapDirection.SOUTH, new Vector2d(3, 2));
 
         // When
-        assertTrue(map.place(animal1), "Animal 1 should be placed successfully.");
-        assertTrue(map.place(animal2), "Animal 2 should be placed successfully.");
+        map.place(animal1);
+        map.place(animal2);
         map.move(animal1, MoveDirection.FORWARD);
         map.move(animal2, MoveDirection.FORWARD);
 
@@ -81,60 +87,65 @@ public class GrassFieldTest {
     }
 
     @Test
-    public void testIsOccupied() {
+    public void testIsOccupied() throws IncorrectPositionException {
         // Given
         WorldMap map = new GrassField(10);
         Animal animal1 = new Animal();
         Animal animal2 = new Animal(MapDirection.SOUTH, new Vector2d(2, 2));
 
         // When
-        assertTrue(map.place(animal1), "Animal 1 should be placed successfully.");
+        map.place(animal1);
 
         // Then
-        assertFalse(map.place(animal2), "Placing animal 2 should fail as position is occupied.");
+        IncorrectPositionException exception = assertThrows(
+                IncorrectPositionException.class,
+                () -> map.place(animal2),
+                "Placing animal 2 should throw IncorrectPositionException as position is occupied."
+        );
+        assertEquals("Position is incorrect (2,2)", exception.getMessage());
         assertTrue(map.isOccupied(new Vector2d(2, 2)), "Position (2, 2) should be occupied.");
     }
 
     @Test
-    public void testIsOccupiedPass() {
+    public void testIsOccupiedPass() throws IncorrectPositionException {
         // Given
         WorldMap map = new GrassField(10);
         Animal animal1 = new Animal();
         Animal animal2 = new Animal(MapDirection.SOUTH, new Vector2d(2, 3));
 
         // When
-        assertTrue(map.place(animal1), "Animal 1 should be placed successfully.");
-        assertTrue(map.place(animal2), "Animal 2 should be placed successfully.");
+        map.place(animal1);
+        map.place(animal2);
 
         // Then
         assertFalse(map.isOccupied(new Vector2d(2, 4)), "Position (2, 4) should not be occupied.");
     }
 
     @Test
-    public void testObjectAt() {
+    public void testObjectAt() throws IncorrectPositionException {
         // Given
         WorldMap map = new GrassField(10);
         Animal animal1 = new Animal();
         Animal animal2 = new Animal(MapDirection.SOUTH, new Vector2d(2, 3));
 
         // When
-        assertTrue(map.place(animal1), "Animal 1 should be placed successfully.");
-        assertTrue(map.place(animal2), "Animal 2 should be placed successfully.");
+        map.place(animal1);
+        map.place(animal2);
 
         // Then
         assertEquals(animal1, map.objectAt(new Vector2d(2, 2)), "Position (2, 2) should have animal1.");
     }
 
     @Test
-    public void testGetElements() {
+    public void testGetElements() throws IncorrectPositionException {
         // Given
         WorldMap map = new GrassField(10);
         Animal animal1 = new Animal();
-        Animal animal2 = new Animal(MapDirection.SOUTH, new Vector2d(2,3));
+        Animal animal2 = new Animal(MapDirection.SOUTH, new Vector2d(2, 3));
 
         // When
-        assertTrue(map.place(animal1), "Animal 1 should be placed successfully.");
-        assertTrue(map.place(animal2), "Animal 2 should be placed successfully.");
+        map.place(animal1);
+        map.place(animal2);
 
         // Then
         assertEquals(12, map.getElements().size(), "Map should contain 12 elements.");

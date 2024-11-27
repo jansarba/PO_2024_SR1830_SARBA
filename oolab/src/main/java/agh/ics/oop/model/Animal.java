@@ -1,8 +1,9 @@
 package agh.ics.oop.model;
 
-import agh.ics.oop.MoveValidator;
 import agh.ics.oop.model.Vector2d;
 import agh.ics.oop.model.RectangularMap;
+import agh.ics.oop.MoveValidator;
+import agh.ics.oop.exceptions.IncorrectPositionException;
 
 public class Animal implements WorldElement{
     public MapDirection orientation;
@@ -39,7 +40,7 @@ public class Animal implements WorldElement{
         return this.position.equals(position);
     }
 
-    public void move(MoveDirection direction, MoveValidator validator){
+    public void changePosition(MoveDirection direction,MoveValidator validator) throws IncorrectPositionException{
         Vector2d forward_vec = switch (orientation) { //patrzymy, gdzie jest "przod"
             case NORTH -> MapDirection.NORTH_VEC;
             case EAST -> MapDirection.EAST_VEC;
@@ -50,14 +51,20 @@ public class Animal implements WorldElement{
         switch (direction){ //jesli forward/backward to idziemy
             case FORWARD:
                 Vector2d newPosition_1 = position.add(forward_vec);
-                if (validator.canMoveTo(newPosition_1)) {
+                if (validator.canMoveTo(newPosition_1)) { //czy moge grzebac przy MoveValidator?
                     this.position = newPosition_1;
+                }
+                else {
+                    throw new IncorrectPositionException(newPosition_1);
                 }
                 break;
             case BACKWARD:
                 Vector2d newPosition_2 = position.add(forward_vec.opposite());
                 if (validator.canMoveTo(newPosition_2)) {
                     this.position = newPosition_2;
+                }
+                else {
+                    throw new IncorrectPositionException(newPosition_2);
                 }
                 break;
             default: break;
