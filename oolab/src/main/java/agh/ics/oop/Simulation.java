@@ -6,10 +6,11 @@ import agh.ics.oop.model.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Simulation {
+public class Simulation implements Runnable{
     private final List<Animal> animals;
     private final List<MoveDirection> moves;
     private final AbstractWorldMap map; //validator
+    private static final String MESSAGE = "Zly ruch pominiety: %s";
 
     public Simulation(List<Vector2d> starting_positions, List<MoveDirection> moves, AbstractWorldMap map) {
         this.animals = new ArrayList<>();
@@ -26,15 +27,15 @@ public class Simulation {
     public List<Animal> getAnimals() {
         return animals;
     }
-
-    public void run() throws IncorrectPositionException{
+    @Override
+    public void run(){
         int tmp=0;
         for (MoveDirection move : moves) {
             Animal curr = animals.get(tmp % animals.size());
             try {
                 map.move(curr, move);
             } catch (IncorrectPositionException e) {
-                System.out.println("Invalid move skipped: " + e.getMessage() + "\n");
+                System.out.println(String.format(MESSAGE, e.getMessage()));
             }
             tmp++;
         }
