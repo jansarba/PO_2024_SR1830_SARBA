@@ -3,6 +3,7 @@ package agh.ics.oop;
 import agh.ics.oop.exceptions.IncorrectPositionException;
 import agh.ics.oop.exceptions.IllegalArgumentException;
 import agh.ics.oop.model.*;
+import javafx.application.Application;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,7 @@ public class World {
         List<Simulation> simulations = List.of(simulation1, simulation2);
         SimulationEngine engine = new SimulationEngine(simulations);
         engine.runAsync();
+        Application.launch(SimulationApp.class, args);
     }
 //        List<Simulation> simulations = new ArrayList<>();
 //        for (int i = 0; i < 1000; i++) { // Tworzymy dużą liczbę symulacji
